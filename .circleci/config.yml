@@ -30,7 +30,7 @@ jobs:
       - checkout
       - run:
           name: "Say My name"
-          command: "echo <<PIPELINE_CREATOR>>"
+          command: echo $PIPELINE_CREATOR
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   say-hello-world-workflow:
@@ -39,4 +39,6 @@ workflows:
       - print-world:
           requires:
             - print-hello
+  printing-myname-workflow:
+    jobs:
       - print-my-name

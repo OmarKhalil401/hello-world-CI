@@ -23,6 +23,14 @@ jobs:
       - run:
           name: "Say World"
           command: "echo World!"
+  print-my-name:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - run:
+          name: "Say My name"
+          command: "echo <<PIPELINE_CREATOR>>"
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   say-hello-world-workflow:
@@ -31,3 +39,4 @@ workflows:
       - print-world:
           requires:
             - print-hello
+      - print-my-name

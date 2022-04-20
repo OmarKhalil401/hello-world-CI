@@ -12,10 +12,11 @@ jobs:
       - run:
           name: "Save Hello, World"
           command: "echo Hello, World! > output.txt"
-      - persist-to-workspace:
+      - persist_to_workspace:
           root: /tmp/workspace
           paths:
             - /temp.txt
+            
   print-output:
     docker:
       - image: cimg/base2020.01

@@ -2,43 +2,36 @@ version: 2.1
 
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  print-hello:
-    docker:
-      - image: cimg/node:13.8.0
-    steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello,"
-
-  print-world:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+  save-hello-world-output:
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
-      - image: cimg/node:13.8.0
-    # Add steps to the job
+      - image: cimg/base2020.01
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
       - run:
-          name: "Say World"
-          command: "echo World!"
-  print-my-name:
+          name: "Save Hello, World"
+          command: "echo Hello, World! > output.txt"
+      - persist-to-workspace:
+          root: /tmp/workspace
+          paths:
+            - /temp.txt
+  print-output:
     docker:
-      - image: cimg/node:13.8.0
+      - image: cimg/base2020.01
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp/workspace
       - run:
-          name: "Say My name"
-          command: echo $PIPELINE_CREATOR
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+          name: "Restore Hello World!"
+          command: "cat output.txt"
+
 workflows:
-  say-hello-world-workflow:
+  printing-the-chached-file:
     jobs:
-      - print-hello
-      - print-world:
+      - save-hello-world-output
+      - print-output:
           requires:
-            - print-hello
-  printing-myname-workflow:
-    jobs:
-      - print-my-name
+            - save-hello-world-output
+

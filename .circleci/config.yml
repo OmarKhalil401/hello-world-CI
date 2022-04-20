@@ -1,31 +1,25 @@
 version: 2.1
 
+commands:
+
+  print_pipeline_id:
+    description: "This Command will only fetch the workflow ID and send it to another job"
+    parameters:
+        to:
+          type: string
+          default: "$CIRCLE_WORKFLOW_ID"
+    steps:
+      - run: "echo parameter.to"
+
 jobs:
-  save_hello_world_output:
-    docker:
-      - image: cimg/base:2022.03
-    steps:
-      - run:
-          command: echo Hello, World! > ~/output.txt
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - output.txt
   
-  print_output:
+  print_workflow_id:
     docker:
       - image: cimg/base:2022.03
     steps:
-      - attach_workspace:
-          at: ~/
-      - run:
-          command: cat ~/output.txt
+      - print_pipeline_id
 
 workflows:
-  printing_the_chached_file:
+  workflow_id_job:
     jobs:
-      - save_hello_world_output
-      - print_output:
-          requires:
-            - save_hello_world_output
-
+      - print_workflow_id

@@ -6,11 +6,11 @@ jobs:
       - image: cimg/base:2022.03
     steps:
       - run:
-          command: echo Hello, World! > ~/Downloads/output.txt
+          command: echo Hello, World! > ~/output.txt
       - persist_to_workspace:
           root: ~/
           paths:
-            - ~/Downloads/output.txt
+            - output.txt
   
   print_output:
     docker:
@@ -19,7 +19,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          command: cat ~/Downloads/output.txt
+          command: cat ~/output.txt
 
 workflows:
   printing_the_chached_file:

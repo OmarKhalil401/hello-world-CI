@@ -16,7 +16,6 @@ jobs:
           root: /tmp/workspace
           paths:
             - /temp.txt
-            
   print-output:
     docker:
       - image: cimg/base2020.01

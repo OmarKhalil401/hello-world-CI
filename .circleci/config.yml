@@ -17,7 +17,7 @@ jobs:
     docker:
       - image: cimg/base:2022.03
     steps:
-      - print_pipeline_id
+      - run: print_pipeline_id
 
 workflows:
   workflow_id_job:

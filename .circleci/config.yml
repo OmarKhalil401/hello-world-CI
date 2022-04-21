@@ -25,7 +25,7 @@ jobs:
     steps:
       - run: 
           name: "the Failed job"
-          command: echo "The job has failed sucessfully"
+          command: echo The job has failed sucessfully
           when: on_fail
 
 

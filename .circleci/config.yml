@@ -18,11 +18,7 @@ jobs:
       - image: cimg/base:2022.03
     steps:
       - print_pipeline_id
-      - run:
-          name: "the Failed job"
-          command: echo The job has failed sucessfully
-          when: on_fail
-          
+
 workflows:
   workflow_id_job:
     jobs:

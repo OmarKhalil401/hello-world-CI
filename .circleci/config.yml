@@ -24,10 +24,12 @@ jobs:
       - image: cimg/base:2022.03
     steps:
       - run: echo "The Previous job failed"
-    when: on_fail
+
 
 workflows:
   workflow_id_job:
     jobs:
       - print_workflow_id
-      - on_fail_job
+
+      - on_fail_job:
+          when: on_fail
